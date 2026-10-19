@@ -3,6 +3,7 @@ import { PGProvider, usePG } from './context/PGContext';
 import { Sidebar } from './components/layout/Sidebar';
 import { Navbar } from './components/layout/Navbar';
 import { DemoBanner } from './components/common/DemoBanner';
+import { MobileBottomNav } from './components/layout/MobileBottomNav';
 
 // Pages
 import { DashboardPage } from './pages/DashboardPage';
@@ -69,6 +70,9 @@ const AppContent: React.FC = () => {
         <main className="content-area">
           {renderActivePage()}
         </main>
+
+        {/* Mobile Bottom Navigation Bar (Fixed bottom on <= 768px) */}
+        <MobileBottomNav onOpenMenu={() => setMobileOpen(true)} />
       </div>
 
       {/* Global Modals & Drawers */}
