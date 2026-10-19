@@ -63,7 +63,7 @@ export const SettingsPage: React.FC = () => {
         }}
       >
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-primary)' }}>
+          <h1 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: 'var(--color-primary)' }}>
             Property & Business Settings
           </h1>
           <p style={{ fontSize: '13.5px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
@@ -74,7 +74,7 @@ export const SettingsPage: React.FC = () => {
         <button
           onClick={() => setIsResetConfirmOpen(true)}
           className="btn btn-outline"
-          style={{ color: 'var(--color-accent)', borderColor: 'var(--color-accent-border)' }}
+          style={{ color: 'var(--color-accent)', borderColor: 'var(--color-accent-border)', minHeight: '38px' }}
         >
           <RotateCcw size={15} />
           <span>Reset All Demo Data</span>
@@ -109,7 +109,7 @@ export const SettingsPage: React.FC = () => {
             <h3 className="card-title">Property Profile & Branch</h3>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div className="grid-form-2" style={{ gap: '16px' }}>
             <div className="form-group">
               <label className="form-label">PG / Property Name</label>
               <input
@@ -141,7 +141,7 @@ export const SettingsPage: React.FC = () => {
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div className="grid-form-2" style={{ gap: '16px' }}>
             <div className="form-group">
               <label className="form-label">Owner / Caretaker Contact Number</label>
               <input
@@ -177,7 +177,7 @@ export const SettingsPage: React.FC = () => {
             <h3 className="card-title">Default Rent, Deposit & Notice Rules</h3>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+          <div className="grid-form-3" style={{ gap: '16px' }}>
             <div className="form-group">
               <label className="form-label">Default Monthly Rent (₹)</label>
               <input
@@ -212,7 +212,7 @@ export const SettingsPage: React.FC = () => {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+          <div className="grid-form-3" style={{ gap: '16px' }}>
             <div className="form-group">
               <label className="form-label">Mandatory Notice Period (Days)</label>
               <input
@@ -239,7 +239,7 @@ export const SettingsPage: React.FC = () => {
 
             <div className="form-group">
               <label className="form-label">Mess & Meal Inclusion</label>
-              <div style={{ display: 'flex', alignItems: 'center', height: '38px', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', minHeight: '38px', gap: '10px' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', cursor: 'pointer' }}>
                   <input
                     type="checkbox"
@@ -247,13 +247,13 @@ export const SettingsPage: React.FC = () => {
                     onChange={(e) => setMealsIncluded(e.target.checked)}
                     style={{ width: '16px', height: '16px', accentColor: 'var(--color-primary)' }}
                   />
-                  <span>Meals (Breakfast, Lunch & Dinner) Included</span>
+                  <span>Meals Included</span>
                 </label>
               </div>
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary" style={{ marginTop: '8px' }}>
+          <button type="submit" className="btn btn-primary" style={{ marginTop: '8px', minHeight: '38px' }}>
             Save Changes
           </button>
         </div>
@@ -276,7 +276,7 @@ export const SettingsPage: React.FC = () => {
               gap: '10px',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
               <div>
                 <strong style={{ fontSize: '14px', color: '#1e293b' }}>
                   Main Gate Biometric Fingerprint / Face Scanner
@@ -286,7 +286,7 @@ export const SettingsPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Status Badge per prompt requirement: Not Connected — Integration Required */}
+              {/* Status Badge per prompt requirement */}
               <div
                 style={{
                   padding: '6px 12px',
@@ -323,12 +323,14 @@ export const SettingsPage: React.FC = () => {
             <div
               style={{
                 display: 'flex',
+                flexWrap: 'wrap',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '12px 14px',
                 backgroundColor: 'var(--color-bg)',
                 borderRadius: 'var(--radius-md)',
                 fontSize: '13px',
+                gap: '8px',
               }}
             >
               <div>
@@ -341,12 +343,14 @@ export const SettingsPage: React.FC = () => {
             <div
               style={{
                 display: 'flex',
+                flexWrap: 'wrap',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '12px 14px',
                 backgroundColor: 'var(--color-bg)',
                 borderRadius: 'var(--radius-md)',
                 fontSize: '13px',
+                gap: '8px',
               }}
             >
               <div>

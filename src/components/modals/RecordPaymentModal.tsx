@@ -100,7 +100,7 @@ export const RecordPaymentModal: React.FC = () => {
       subtitle="Log simulated UPI, Cash or Bank payments and update bill balance."
       maxWidth="540px"
       footer={
-        <>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '8px', width: '100%' }}>
           <button
             type="button"
             onClick={() => {
@@ -108,6 +108,7 @@ export const RecordPaymentModal: React.FC = () => {
               setSelectedBillId(null);
             }}
             className="btn btn-outline btn-sm"
+            style={{ minHeight: '38px', flex: '1 1 100px' }}
           >
             Cancel
           </button>
@@ -116,10 +117,11 @@ export const RecordPaymentModal: React.FC = () => {
             onClick={handleSubmit}
             className="btn btn-primary btn-sm"
             disabled={isSubmitting || !currentBill}
+            style={{ minHeight: '38px', flex: '2 1 180px' }}
           >
             {isSubmitting ? 'Recording...' : 'Confirm & Record Payment'}
           </button>
-        </>
+        </div>
       }
     >
       <form onSubmit={handleSubmit}>
@@ -218,11 +220,12 @@ export const RecordPaymentModal: React.FC = () => {
           />
 
           {currentBill && (
-            <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px' }}>
               <button
                 type="button"
                 className="btn btn-outline btn-sm"
                 onClick={() => setPaymentAmount(currentBill.outstandingAmount)}
+                style={{ minHeight: '34px' }}
               >
                 Full Outstanding (₹{currentBill.outstandingAmount.toLocaleString('en-IN')})
               </button>
@@ -231,6 +234,7 @@ export const RecordPaymentModal: React.FC = () => {
                   type="button"
                   className="btn btn-outline btn-sm"
                   onClick={() => setPaymentAmount(3000)}
+                  style={{ minHeight: '34px' }}
                 >
                   Partial (₹3,000)
                 </button>
@@ -258,7 +262,7 @@ export const RecordPaymentModal: React.FC = () => {
         )}
 
         {/* Date & Payment Method */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+        <div className="grid-form-2" style={{ gap: '14px' }}>
           <div className="form-group">
             <label className="form-label">Payment Date</label>
             <input

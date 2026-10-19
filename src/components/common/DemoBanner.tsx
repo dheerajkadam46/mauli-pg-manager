@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Info, HelpCircle } from 'lucide-react';
+import { Sparkles, HelpCircle } from 'lucide-react';
 import { usePG } from '../../context/PGContext';
 
 export const DemoBanner: React.FC = () => {
@@ -7,28 +7,29 @@ export const DemoBanner: React.FC = () => {
 
   return (
     <div className="demo-banner">
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-        <span className="demo-badge-pill">DEMO PROTOTYPE</span>
+      <div className="demo-banner-content">
+        <span className="demo-badge-pill">DEMO MODE</span>
         <span>
-          <strong>Mauli PG Manager</strong> — Interactive Client Review. All records are fictional simulations for demonstration.
+          <strong>Mauli PG Manager</strong> — Interactive Client Prototype. Simulated records for testing.
         </span>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div className="demo-banner-actions">
         <button
           onClick={() => setIsQuickTourOpen(true)}
           style={{
-            background: 'rgba(255, 255, 255, 0.15)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
+            background: 'rgba(255, 255, 255, 0.18)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             color: '#ffffff',
             borderRadius: '4px',
-            padding: '3px 10px',
+            padding: '4px 10px',
             fontSize: '11.5px',
             fontWeight: 600,
             cursor: 'pointer',
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
             gap: '5px',
+            whiteSpace: 'nowrap',
           }}
         >
           <HelpCircle size={13} />
@@ -42,17 +43,18 @@ export const DemoBanner: React.FC = () => {
             border: 'none',
             color: '#ffffff',
             borderRadius: '4px',
-            padding: '3px 10px',
+            padding: '4px 10px',
             fontSize: '11.5px',
             fontWeight: 600,
             cursor: 'pointer',
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
             gap: '5px',
+            whiteSpace: 'nowrap',
           }}
         >
           <Sparkles size={13} />
-          <span>Request Changes</span>
+          <span>Feedback</span>
         </button>
       </div>
     </div>

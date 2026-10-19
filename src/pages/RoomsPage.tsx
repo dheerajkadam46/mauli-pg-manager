@@ -64,7 +64,7 @@ export const RoomsPage: React.FC = () => {
         }}
       >
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-primary)' }}>
+          <h1 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: 'var(--color-primary)' }}>
             Rooms & Beds — Interactive Occupancy Map
           </h1>
           <p style={{ fontSize: '13.5px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
@@ -158,9 +158,9 @@ export const RoomsPage: React.FC = () => {
           justifyContent: 'space-between',
         }}
       >
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center', width: '100%' }}>
           {/* Floor Tabs */}
-          <div className="filter-tabs">
+          <div className="filter-tabs" style={{ maxWidth: '100%', overflowX: 'auto', paddingBottom: '2px' }}>
             <button
               onClick={() => setSelectedFloor('all')}
               className={`filter-tab ${selectedFloor === 'all' ? 'active' : ''}`}
@@ -183,7 +183,7 @@ export const RoomsPage: React.FC = () => {
             className="form-select"
             value={selectedStatusFilter}
             onChange={(e) => setSelectedStatusFilter(e.target.value as any)}
-            style={{ width: '160px', padding: '6px 10px', fontSize: '12.5px' }}
+            style={{ minWidth: '160px', flex: '1 1 auto', padding: '8px 10px', fontSize: '12.5px', minHeight: '38px' }}
           >
             <option value="all">All Bed Statuses</option>
             <option value="available">Available Beds Only</option>
@@ -195,7 +195,7 @@ export const RoomsPage: React.FC = () => {
         </div>
 
         {/* Legend */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '12px', color: 'var(--color-text-muted)' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px', fontSize: '12px', color: 'var(--color-text-muted)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
             <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'var(--color-primary)' }} />
             <span>Occupied</span>
@@ -261,7 +261,7 @@ export const RoomsPage: React.FC = () => {
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
                     gap: '16px',
                   }}
                 >

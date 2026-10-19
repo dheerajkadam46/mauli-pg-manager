@@ -45,7 +45,7 @@ export const DepositsPage: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
       <div>
-        <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-primary)' }}>
+        <h1 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: 'var(--color-primary)' }}>
           Security Deposit Management & Settlement
         </h1>
         <p style={{ fontSize: '13.5px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
@@ -56,21 +56,21 @@ export const DepositsPage: React.FC = () => {
       {/* Rules Policy Alert Banner */}
       <div
         style={{
-          padding: '16px 20px',
+          padding: '16px',
           backgroundColor: 'var(--color-primary-subtle)',
           borderRadius: 'var(--radius-lg)',
           border: '1px solid var(--color-primary-border)',
           display: 'flex',
           alignItems: 'flex-start',
-          gap: '14px',
+          gap: '12px',
         }}
       >
-        <ShieldCheck size={24} color="var(--color-primary)" style={{ flexShrink: 0, marginTop: '2px' }} />
+        <ShieldCheck size={22} color="var(--color-primary)" style={{ flexShrink: 0, marginTop: '2px' }} />
         <div>
-          <h4 style={{ fontSize: '15px', color: 'var(--color-primary)', marginBottom: '4px' }}>
+          <h4 style={{ fontSize: '14.5px', color: 'var(--color-primary)', marginBottom: '4px' }}>
             Mauli PG Standard Terms & Settlement Policy
           </h4>
-          <div style={{ fontSize: '13px', color: 'var(--color-text-main)', lineHeight: 1.5 }}>
+          <div style={{ fontSize: '12.5px', color: 'var(--color-text-main)', lineHeight: 1.5 }}>
             • <strong>Monthly Rent:</strong> ₹6,000/mo (including meals) • <strong>Security Deposit:</strong> ₹3,000 • <strong>Initial Move-in:</strong> ₹9,000<br />
             • <strong>Standard Notice:</strong> 15 Days required • <strong>Standard Maintenance Deduction:</strong> ₹1,000 deducted at departure for painting & deep sanitation • <strong>Standard Refund Due:</strong> <strong>₹2,000</strong> (assuming ₹3,000 full deposit was received).
           </div>
@@ -78,13 +78,7 @@ export const DepositsPage: React.FC = () => {
       </div>
 
       {/* KPI Cards */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
-          gap: '16px',
-        }}
-      >
+      <div className="grid-kpi-cards">
         <StatCard
           label="Total Deposits Expected"
           value={`₹${metrics.totalDepositsExpected.toLocaleString('en-IN')}`}
@@ -93,9 +87,9 @@ export const DepositsPage: React.FC = () => {
         />
 
         <StatCard
-          label="Total Deposits Received & Held"
+          label="Deposits Held"
           value={`₹${metrics.totalDepositsReceived.toLocaleString('en-IN')}`}
-          subtext="Actual cash / UPI deposits received"
+          subtext="Actual deposits received"
           icon={IndianRupee}
           iconBgColor="var(--status-available-bg)"
           iconColor="var(--status-available)"
@@ -111,7 +105,7 @@ export const DepositsPage: React.FC = () => {
         />
 
         <StatCard
-          label="Refunds Completed & Settled"
+          label="Refunds Settled"
           value={`₹${metrics.refundsCompletedAmount.toLocaleString('en-IN')}`}
           subtext="Historical processed refunds"
           icon={CheckCircle}
@@ -121,7 +115,7 @@ export const DepositsPage: React.FC = () => {
       </div>
 
       {/* Interactive Checkout Deposit Calculator Box */}
-      <div className="card" style={{ padding: '22px' }}>
+      <div className="card" style={{ padding: '18px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
           <div
             style={{
@@ -133,29 +127,31 @@ export const DepositsPage: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              flexShrink: 0,
             }}
           >
             <Calculator size={20} />
           </div>
           <div>
-            <h3 style={{ fontSize: '17px', color: 'var(--color-primary)' }}>
+            <h3 style={{ fontSize: '16px', color: 'var(--color-primary)' }}>
               Working Interactive Checkout Deposit Calculator
             </h3>
-            <p style={{ fontSize: '12.5px', color: 'var(--color-text-muted)' }}>
+            <p style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>
               Inspect and test how deductions and refunds are calculated transparently for any tenant.
             </p>
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px' }}>
+        <div className="grid-calculator-split">
           {/* Controls */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label className="form-label">Pick Tenant (or test custom)</label>
+              <label className="form-label" style={{ fontSize: '12.5px' }}>Pick Tenant (or test custom)</label>
               <select
                 className="form-select"
                 value={calcTenantId}
                 onChange={(e) => handleCalcTenantChange(e.target.value)}
+                style={{ fontSize: '13px' }}
               >
                 {tenants.map((t) => (
                   <option key={t.id} value={t.id}>
@@ -165,7 +161,7 @@ export const DepositsPage: React.FC = () => {
               </select>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div className="grid-form-2" style={{ gap: '12px' }}>
               <div>
                 <label className="form-label" style={{ fontSize: '12px' }}>Deposit Received (₹)</label>
                 <input
@@ -187,7 +183,7 @@ export const DepositsPage: React.FC = () => {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div className="grid-form-2" style={{ gap: '12px' }}>
               <div>
                 <label className="form-label" style={{ fontSize: '12px' }}>Damage / Repair Charges (₹)</label>
                 <input
@@ -216,7 +212,7 @@ export const DepositsPage: React.FC = () => {
               backgroundColor: 'var(--color-bg)',
               border: '1px solid var(--color-border)',
               borderRadius: 'var(--radius-md)',
-              padding: '18px',
+              padding: '16px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
@@ -227,7 +223,7 @@ export const DepositsPage: React.FC = () => {
                 Itemized Settlement Statement
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12.5px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span>Deposit Received:</span>
                   <strong>₹{customReceived.toLocaleString('en-IN')}</strong>
@@ -262,10 +258,10 @@ export const DepositsPage: React.FC = () => {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--color-primary)' }}>
+                <span style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--color-primary)' }}>
                   Net Refund Payable:
                 </span>
-                <span style={{ fontSize: '22px', fontWeight: 800, color: 'var(--color-accent)' }}>
+                <span style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-accent)' }}>
                   ₹{netRefund.toLocaleString('en-IN')}
                 </span>
               </div>
@@ -277,8 +273,97 @@ export const DepositsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Deposit Ledger Table */}
-      <div className="table-container">
+      {/* Mobile Card List (Visible <= 767px) */}
+      <div className="mobile-card-list">
+        {deposits.map((dep) => (
+          <div key={dep.id} className="card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+              <div>
+                <strong style={{ fontSize: '15px', color: 'var(--color-primary)' }}>{dep.tenantName}</strong>
+                <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
+                  Room {dep.roomNumber} • Bed {dep.bedId}
+                </div>
+              </div>
+              <span
+                className="badge"
+                style={{
+                  textTransform: 'uppercase',
+                  fontSize: '10.5px',
+                  backgroundColor:
+                    dep.settlementStatus === 'refunded'
+                      ? '#e2e8f0'
+                      : dep.settlementStatus === 'awaiting_settlement'
+                      ? 'var(--status-notice-bg)'
+                      : 'var(--status-occupied-bg)',
+                  color:
+                    dep.settlementStatus === 'refunded'
+                      ? '#475569'
+                      : dep.settlementStatus === 'awaiting_settlement'
+                      ? 'var(--status-notice)'
+                      : 'var(--status-occupied)',
+                }}
+              >
+                {dep.settlementStatus.replace('_', ' ')}
+              </span>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '8px',
+                backgroundColor: 'var(--color-bg-subtle)',
+                padding: '10px',
+                borderRadius: 'var(--radius-md)',
+                textAlign: 'center',
+              }}
+            >
+              <div>
+                <div style={{ fontSize: '10.5px', color: 'var(--color-text-muted)' }}>Received</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: dep.receivedAmount > 0 ? 'var(--color-success)' : 'var(--color-danger)' }}>
+                  ₹{dep.receivedAmount.toLocaleString('en-IN')}
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: '10.5px', color: 'var(--color-text-muted)' }}>Deductions</div>
+                <div style={{ fontSize: '13px', fontWeight: 600, color: dep.deductionAmount > 0 ? 'var(--color-danger)' : 'var(--color-text-muted)' }}>
+                  {dep.deductionAmount > 0 ? `-₹${dep.deductionAmount.toLocaleString('en-IN')}` : '₹0'}
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: '10.5px', color: 'var(--color-text-muted)' }}>Refund Due</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: dep.refundDue > 0 ? 'var(--color-accent)' : 'inherit' }}>
+                  ₹{dep.refundDue.toLocaleString('en-IN')}
+                </div>
+              </div>
+            </div>
+
+            {dep.refundPaid > 0 && (
+              <div style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>
+                Refund Paid: <strong style={{ color: 'var(--color-primary)' }}>₹{dep.refundPaid.toLocaleString('en-IN')}</strong> {dep.refundMethod ? `via ${dep.refundMethod}` : ''}
+              </div>
+            )}
+
+            {dep.settlementStatus === 'awaiting_settlement' && (
+              <div style={{ paddingTop: '8px', borderTop: '1px solid var(--color-border-light)' }}>
+                <button
+                  onClick={() => {
+                    setSelectedTenantId(dep.tenantId);
+                    setIsCheckoutWizardOpen(true);
+                  }}
+                  className="btn btn-accent btn-sm"
+                  style={{ width: '100%', minHeight: '38px', fontSize: '12.5px' }}
+                >
+                  Settle Refund Checkout
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop Deposit Ledger Table (Visible >= 768px) */}
+      <div className="table-container desktop-table-container">
         <table>
           <thead>
             <tr>

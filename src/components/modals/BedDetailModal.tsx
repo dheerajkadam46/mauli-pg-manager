@@ -128,12 +128,12 @@ export const BedDetailModal: React.FC<BedDetailModalProps> = ({ isOpen, onClose,
               </div>
 
               {/* Action Buttons for this Bed's Tenant */}
-              <div style={{ display: 'flex', gap: '8px', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid var(--color-border-light)' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '16px', paddingTop: '12px', borderTop: '1px solid var(--color-border-light)' }}>
                 <button
                   type="button"
                   onClick={() => setIsTransferOpen(true)}
                   className="btn btn-outline btn-sm"
-                  style={{ flex: 1 }}
+                  style={{ flex: '1 1 140px', minHeight: '38px' }}
                 >
                   <ArrowRightLeft size={14} />
                   <span>Transfer Bed</span>
@@ -147,7 +147,7 @@ export const BedDetailModal: React.FC<BedDetailModalProps> = ({ isOpen, onClose,
                     onClose();
                   }}
                   className="btn btn-outline btn-sm"
-                  style={{ flex: 1, color: 'var(--color-accent)' }}
+                  style={{ flex: '1 1 140px', minHeight: '38px', color: 'var(--color-accent)' }}
                 >
                   <LogOut size={14} />
                   <span>Start Checkout</span>

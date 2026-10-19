@@ -23,18 +23,19 @@ export const ReceiptModal: React.FC = () => {
       subtitle={`Official payment receipt for ${bill.tenantName}`}
       maxWidth="620px"
       footer={
-        <>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '8px', width: '100%' }}>
           <button
             onClick={() => setSelectedReceiptBill(null)}
             className="btn btn-outline btn-sm"
+            style={{ minHeight: '38px', flex: '1 1 100px' }}
           >
             Close
           </button>
-          <button onClick={handlePrint} className="btn btn-primary btn-sm">
+          <button onClick={handlePrint} className="btn btn-primary btn-sm" style={{ minHeight: '38px', flex: '2 1 160px' }}>
             <Printer size={16} />
             <span>Print Receipt</span>
           </button>
-        </>
+        </div>
       }
     >
       {/* Printable Receipt Card */}
@@ -43,7 +44,7 @@ export const ReceiptModal: React.FC = () => {
         style={{
           border: '2px solid var(--color-primary-border)',
           borderRadius: 'var(--radius-md)',
-          padding: '24px',
+          padding: '16px',
           backgroundColor: '#ffffff',
           color: '#1f2937',
           fontFamily: 'var(--font-body)',
@@ -53,15 +54,17 @@ export const ReceiptModal: React.FC = () => {
         <div
           style={{
             display: 'flex',
+            flexWrap: 'wrap',
             justifyContent: 'space-between',
             alignItems: 'flex-start',
+            gap: '12px',
             borderBottom: '2px solid var(--color-primary)',
             paddingBottom: '16px',
             marginBottom: '16px',
           }}
         >
           <div>
-            <h2 style={{ fontSize: '22px', fontWeight: 700, color: 'var(--color-primary)', margin: 0 }}>
+            <h2 style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 700, color: 'var(--color-primary)', margin: 0 }}>
               {settings.name}
             </h2>
             <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
@@ -75,7 +78,7 @@ export const ReceiptModal: React.FC = () => {
             </div>
           </div>
 
-          <div style={{ textAlign: 'right' }}>
+          <div style={{ textAlign: 'left' }}>
             <div
               style={{
                 display: 'inline-block',
@@ -104,10 +107,10 @@ export const ReceiptModal: React.FC = () => {
         <div
           style={{
             backgroundColor: 'var(--color-bg)',
-            padding: '12px 16px',
+            padding: '12px 14px',
             borderRadius: 'var(--radius-sm)',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
             gap: '12px',
             marginBottom: '16px',
             fontSize: '13px',

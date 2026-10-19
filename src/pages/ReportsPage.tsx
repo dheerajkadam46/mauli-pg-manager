@@ -116,7 +116,7 @@ export const ReportsPage: React.FC = () => {
         }}
       >
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-primary)' }}>
+          <h1 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: 'var(--color-primary)' }}>
             Business Reports & Analytics
           </h1>
           <p style={{ fontSize: '13.5px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
@@ -125,7 +125,7 @@ export const ReportsPage: React.FC = () => {
         </div>
 
         {/* Global Export Trigger */}
-        <div style={{ display: 'flex', gap: '10px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
           <button
             onClick={() => {
               if (activeReportTab === 'collection') exportCollectionCSV();
@@ -134,7 +134,7 @@ export const ReportsPage: React.FC = () => {
               else exportPaymentsCSV();
             }}
             className="btn btn-outline"
-            style={{ fontSize: '13px' }}
+            style={{ fontSize: '13px', minHeight: '38px' }}
           >
             <Download size={16} />
             <span>Export Current Table to CSV</span>
@@ -143,7 +143,7 @@ export const ReportsPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="filter-tabs">
+      <div className="filter-tabs" style={{ maxWidth: '100%', overflowX: 'auto', paddingBottom: '2px' }}>
         <button
           onClick={() => setActiveReportTab('collection')}
           className={`filter-tab ${activeReportTab === 'collection' ? 'active' : ''}`}
@@ -172,13 +172,13 @@ export const ReportsPage: React.FC = () => {
 
       {/* TAB 1: Rent Collections Report */}
       {activeReportTab === 'collection' && (
-        <div className="card" style={{ padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div className="card" style={{ padding: '18px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <div>
               <h3 className="card-title">Monthly Rent Ledger Summary</h3>
               <p className="card-subtitle">Realized income vs pending dues across active billing cycles</p>
             </div>
-            <button onClick={exportCollectionCSV} className="btn btn-subtle btn-sm">
+            <button onClick={exportCollectionCSV} className="btn btn-subtle btn-sm" style={{ minHeight: '34px' }}>
               <FileSpreadsheet size={14} />
               <span>Download Excel/CSV</span>
             </button>
@@ -223,13 +223,13 @@ export const ReportsPage: React.FC = () => {
 
       {/* TAB 2: Occupancy & Floor Summary */}
       {activeReportTab === 'occupancy' && (
-        <div className="card" style={{ padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div className="card" style={{ padding: '18px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <div>
               <h3 className="card-title">Floor-Wise Bed Utilization</h3>
               <p className="card-subtitle">Occupied vs available capacity per room</p>
             </div>
-            <button onClick={exportOccupancyCSV} className="btn btn-subtle btn-sm">
+            <button onClick={exportOccupancyCSV} className="btn btn-subtle btn-sm" style={{ minHeight: '34px' }}>
               <FileSpreadsheet size={14} />
               <span>Download Excel/CSV</span>
             </button>
@@ -279,13 +279,13 @@ export const ReportsPage: React.FC = () => {
 
       {/* TAB 3: Deposits Liability */}
       {activeReportTab === 'deposits' && (
-        <div className="card" style={{ padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div className="card" style={{ padding: '18px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <div>
               <h3 className="card-title">Security Deposits & Refund Liabilities</h3>
               <p className="card-subtitle">Audited record of tenant security funds held</p>
             </div>
-            <button onClick={exportDepositsCSV} className="btn btn-subtle btn-sm">
+            <button onClick={exportDepositsCSV} className="btn btn-subtle btn-sm" style={{ minHeight: '34px' }}>
               <FileSpreadsheet size={14} />
               <span>Download Excel/CSV</span>
             </button>
@@ -332,13 +332,13 @@ export const ReportsPage: React.FC = () => {
 
       {/* TAB 4: Payments History */}
       {activeReportTab === 'payments' && (
-        <div className="card" style={{ padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div className="card" style={{ padding: '18px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
             <div>
               <h3 className="card-title">All Historical Payments</h3>
               <p className="card-subtitle">Complete audit trail of all recorded collections</p>
             </div>
-            <button onClick={exportPaymentsCSV} className="btn btn-subtle btn-sm">
+            <button onClick={exportPaymentsCSV} className="btn btn-subtle btn-sm" style={{ minHeight: '34px' }}>
               <FileSpreadsheet size={14} />
               <span>Download Excel/CSV</span>
             </button>

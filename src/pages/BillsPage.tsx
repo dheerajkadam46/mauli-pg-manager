@@ -84,7 +84,7 @@ export const BillsPage: React.FC = () => {
         }}
       >
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-primary)' }}>
+          <h1 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: 'var(--color-primary)' }}>
             Rent & Billing Ledger
           </h1>
           <p style={{ fontSize: '13.5px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
@@ -92,26 +92,28 @@ export const BillsPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Month Selector */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Calendar size={18} color="var(--color-primary)" />
-          <select
-            className="form-select"
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            style={{ fontWeight: 600, width: '160px', padding: '7px 12px' }}
-          >
-            {availableMonths.map((m) => (
-              <option key={m} value={m}>
-                {m}
-              </option>
-            ))}
-          </select>
+        {/* Month Selector & Action */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Calendar size={18} color="var(--color-primary)" />
+            <select
+              className="form-select"
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              style={{ fontWeight: 600, width: '150px', padding: '8px 10px', minHeight: '38px', fontSize: '13px' }}
+            >
+              {availableMonths.map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <button
             onClick={() => setIsRecordPaymentOpen(true)}
             className="btn btn-primary"
-            style={{ fontSize: '13px' }}
+            style={{ fontSize: '13px', minHeight: '38px' }}
           >
             <DollarSign size={15} />
             <span>Record Payment</span>
@@ -120,49 +122,43 @@ export const BillsPage: React.FC = () => {
       </div>
 
       {/* Financial Summary KPI Cards */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
-          gap: '16px',
-        }}
-      >
-        <div className="card" style={{ padding: '16px' }}>
-          <div style={{ fontSize: '12.5px', color: 'var(--color-text-muted)' }}>Total Billed ({selectedMonth})</div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-primary)', marginTop: '4px' }}>
+      <div className="grid-kpi-cards">
+        <div className="card" style={{ padding: '14px 16px' }}>
+          <div style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>Total Billed ({selectedMonth})</div>
+          <div style={{ fontSize: '22px', fontWeight: 700, color: 'var(--color-primary)', marginTop: '4px' }}>
             ₹{totalBilled.toLocaleString('en-IN')}
           </div>
-          <div style={{ fontSize: '11.5px', color: 'var(--color-text-muted)', marginTop: '4px' }}>
+          <div style={{ fontSize: '11px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
             {currentMonthBills.length} Tenant Invoices
           </div>
         </div>
 
-        <div className="card" style={{ padding: '16px' }}>
-          <div style={{ fontSize: '12.5px', color: 'var(--color-text-muted)' }}>Total Realized & Collected</div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-success)', marginTop: '4px' }}>
+        <div className="card" style={{ padding: '14px 16px' }}>
+          <div style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>Realized & Collected</div>
+          <div style={{ fontSize: '22px', fontWeight: 700, color: 'var(--color-success)', marginTop: '4px' }}>
             ₹{totalCollected.toLocaleString('en-IN')}
           </div>
-          <div style={{ fontSize: '11.5px', color: 'var(--color-success)', marginTop: '4px' }}>
+          <div style={{ fontSize: '11px', color: 'var(--color-success)', marginTop: '2px' }}>
             {paidCount} fully paid bills
           </div>
         </div>
 
-        <div className="card" style={{ padding: '16px' }}>
-          <div style={{ fontSize: '12.5px', color: 'var(--color-text-muted)' }}>Outstanding Balance Due</div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-accent)', marginTop: '4px' }}>
+        <div className="card" style={{ padding: '14px 16px' }}>
+          <div style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>Outstanding Due</div>
+          <div style={{ fontSize: '22px', fontWeight: 700, color: 'var(--color-accent)', marginTop: '4px' }}>
             ₹{totalOutstanding.toLocaleString('en-IN')}
           </div>
-          <div style={{ fontSize: '11.5px', color: 'var(--color-accent)', marginTop: '4px' }}>
+          <div style={{ fontSize: '11px', color: 'var(--color-accent)', marginTop: '2px' }}>
             {partiallyPaidCount} partial, {unpaidCount + overdueCount} unpaid
           </div>
         </div>
 
-        <div className="card" style={{ padding: '16px' }}>
-          <div style={{ fontSize: '12.5px', color: 'var(--color-text-muted)' }}>Collection Realization Rate</div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-text-main)', marginTop: '4px' }}>
+        <div className="card" style={{ padding: '14px 16px' }}>
+          <div style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>Realization Rate</div>
+          <div style={{ fontSize: '22px', fontWeight: 700, color: 'var(--color-text-main)', marginTop: '4px' }}>
             {totalBilled > 0 ? Math.round((totalCollected / totalBilled) * 100) : 0}%
           </div>
-          <div style={{ fontSize: '11.5px', color: 'var(--color-text-muted)', marginTop: '4px' }}>
+          <div style={{ fontSize: '11px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
             {overdueCount > 0 ? `${overdueCount} Overdue Bills` : 'No overdue accounts'}
           </div>
         </div>
@@ -172,15 +168,15 @@ export const BillsPage: React.FC = () => {
       <div
         className="card"
         style={{
-          padding: '16px',
+          padding: '14px 16px',
           display: 'flex',
           flexWrap: 'wrap',
-          gap: '16px',
+          gap: '12px',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}
       >
-        <div className="filter-tabs">
+        <div className="filter-tabs" style={{ maxWidth: '100%', overflowX: 'auto', paddingBottom: '2px' }}>
           <button
             onClick={() => setStatusFilter('all')}
             className={`filter-tab ${statusFilter === 'all' ? 'active' : ''}`}
@@ -197,7 +193,7 @@ export const BillsPage: React.FC = () => {
             onClick={() => setStatusFilter('partially_paid')}
             className={`filter-tab ${statusFilter === 'partially_paid' ? 'active' : ''}`}
           >
-            Partially Paid ({partiallyPaidCount})
+            Partial ({partiallyPaidCount})
           </button>
           <button
             onClick={() => setStatusFilter('unpaid')}
@@ -207,7 +203,7 @@ export const BillsPage: React.FC = () => {
           </button>
         </div>
 
-        <div style={{ position: 'relative', width: '260px' }}>
+        <div style={{ position: 'relative', width: '100%', maxWidth: '280px', flex: '1 1 200px' }}>
           <Search size={15} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }} />
           <input
             type="text"
@@ -215,13 +211,108 @@ export const BillsPage: React.FC = () => {
             placeholder="Search tenant or room..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ paddingLeft: '32px', fontSize: '12.5px', padding: '7px 10px 7px 32px' }}
+            style={{ width: '100%', paddingLeft: '32px', fontSize: '13px', minHeight: '38px' }}
           />
         </div>
       </div>
 
-      {/* Bills Ledger Table */}
-      <div className="table-container">
+      {/* Mobile Card List (Visible <= 767px) */}
+      <div className="mobile-card-list">
+        {filteredBills.length === 0 ? (
+          <div className="card" style={{ padding: '32px', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+            No bills found matching the selected filter for {selectedMonth}.
+          </div>
+        ) : (
+          filteredBills.map((bill) => (
+            <div key={bill.id} className="card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '15px', color: 'var(--color-primary)' }}>
+                    {bill.tenantName}
+                  </div>
+                  <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
+                    Room {bill.roomNumber} • Bed {bill.bedId}
+                  </div>
+                </div>
+                <Badge type="bill" status={bill.status} />
+              </div>
+
+              {/* Financial Amounts breakdown */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: '8px',
+                  backgroundColor: 'var(--color-bg-subtle)',
+                  padding: '10px',
+                  borderRadius: 'var(--radius-md)',
+                  textAlign: 'center',
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>Total Bill</div>
+                  <div style={{ fontSize: '13.5px', fontWeight: 700 }}>₹{bill.billAmount.toLocaleString('en-IN')}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>Paid</div>
+                  <div style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--color-success)' }}>₹{bill.amountPaid.toLocaleString('en-IN')}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>Balance</div>
+                  <div style={{ fontSize: '13.5px', fontWeight: 700, color: bill.outstandingAmount > 0 ? 'var(--color-accent)' : 'var(--color-text-main)' }}>
+                    ₹{bill.outstandingAmount.toLocaleString('en-IN')}
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: 'var(--color-text-muted)' }}>
+                <span>Due Date: <strong style={{ color: 'var(--color-text-main)' }}>{bill.dueDate}</strong></span>
+                {bill.payments.length > 0 && <span>{bill.payments.length} payment(s)</span>}
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '8px', borderTop: '1px solid var(--color-border-light)' }}>
+                {bill.outstandingAmount > 0 && (
+                  <button
+                    onClick={() => {
+                      setSelectedBillId(bill.id);
+                      setIsRecordPaymentOpen(true);
+                    }}
+                    className="btn btn-primary btn-sm"
+                    style={{ flex: '1 1 70px', minHeight: '36px' }}
+                  >
+                    <DollarSign size={13} />
+                    <span>Pay</span>
+                  </button>
+                )}
+
+                <button
+                  onClick={() => setSelectedReceiptBill(bill)}
+                  className="btn btn-outline btn-sm"
+                  style={{ flex: '1 1 80px', minHeight: '36px' }}
+                >
+                  <Receipt size={13} />
+                  <span>Receipt</span>
+                </button>
+
+                {bill.outstandingAmount > 0 && (
+                  <button
+                    onClick={() => setReminderBill(bill)}
+                    className="btn btn-outline btn-sm"
+                    style={{ flex: '1 1 90px', minHeight: '36px', color: 'var(--color-accent)' }}
+                  >
+                    <MessageCircle size={13} />
+                    <span>Reminder</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Desktop Bills Ledger Table (Visible >= 768px) */}
+      <div className="table-container desktop-table-container">
         <table>
           <thead>
             <tr>

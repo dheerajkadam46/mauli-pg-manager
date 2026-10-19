@@ -3,15 +3,12 @@ import { usePG } from '../context/PGContext';
 import { Badge } from '../components/common/Badge';
 import { TenantProfileDrawer } from '../components/modals/TenantProfileDrawer';
 import {
-  Users,
   Search,
-  Filter,
   PlusCircle,
   Eye,
   DollarSign,
   Phone,
   Building,
-  MoreVertical,
   Calendar,
 } from 'lucide-react';
 
@@ -60,7 +57,7 @@ export const TenantsPage: React.FC = () => {
   });
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
       {/* Header Row */}
       <div
         style={{
@@ -68,19 +65,23 @@ export const TenantsPage: React.FC = () => {
           flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '16px',
+          gap: '12px',
         }}
       >
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--color-primary)' }}>
+          <h1 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: 'var(--color-primary)' }}>
             Tenant Management
           </h1>
-          <p style={{ fontSize: '13.5px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
-            Search occupants, inspect rent dues, view profiles, and register new move-ins.
+          <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', marginTop: '2px' }}>
+            Occupant directory, room assignments & rent dues
           </p>
         </div>
 
-        <button onClick={() => setIsAddTenantOpen(true)} className="btn btn-primary">
+        <button
+          onClick={() => setIsAddTenantOpen(true)}
+          className="btn btn-primary"
+          style={{ fontSize: '13px', padding: '8px 14px' }}
+        >
           <PlusCircle size={16} />
           <span>Add New Tenant</span>
         </button>
@@ -90,22 +91,20 @@ export const TenantsPage: React.FC = () => {
       <div
         className="card"
         style={{
-          padding: '16px',
+          padding: '14px',
           display: 'flex',
-          flexWrap: 'wrap',
-          gap: '16px',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          flexDirection: 'column',
+          gap: '12px',
         }}
       >
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center' }}>
-          {/* Status Filter Tabs */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
+          {/* Status Filter Tabs (Scrolls horizontally on mobile) */}
           <div className="filter-tabs">
             <button
               onClick={() => setStatusFilter('all')}
               className={`filter-tab ${statusFilter === 'all' ? 'active' : ''}`}
             >
-              All Tenancies ({tenants.length})
+              All ({tenants.length})
             </button>
             <button
               onClick={() => setStatusFilter('active')}
@@ -123,7 +122,7 @@ export const TenantsPage: React.FC = () => {
               onClick={() => setStatusFilter('checked_out')}
               className={`filter-tab ${statusFilter === 'checked_out' ? 'active' : ''}`}
             >
-              Past Checkouts ({tenants.filter((t) => t.status === 'checked_out').length})
+              Past ({tenants.filter((t) => t.status === 'checked_out').length})
             </button>
           </div>
 
@@ -132,17 +131,17 @@ export const TenantsPage: React.FC = () => {
             className="form-select"
             value={rentFilter}
             onChange={(e) => setRentFilter(e.target.value as any)}
-            style={{ width: '170px', padding: '6px 10px', fontSize: '12.5px' }}
+            style={{ width: 'auto', minWidth: '150px', padding: '6px 10px', fontSize: '12.5px', height: '36px' }}
           >
-            <option value="all">Rent: All Statuses</option>
+            <option value="all">Rent: All</option>
             <option value="paid">Rent: Paid</option>
-            <option value="partially_paid">Rent: Partially Paid</option>
+            <option value="partially_paid">Rent: Partial</option>
             <option value="overdue">Rent: Overdue</option>
           </select>
         </div>
 
-        {/* Local Search Input */}
-        <div style={{ position: 'relative', width: '260px' }}>
+        {/* Search Input (Full width on mobile) */}
+        <div style={{ position: 'relative', width: '100%' }}>
           <Search size={15} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }} />
           <input
             type="text"
@@ -150,13 +149,139 @@ export const TenantsPage: React.FC = () => {
             placeholder="Search by name, room, bed, phone..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ paddingLeft: '32px', fontSize: '12.5px', padding: '7px 10px 7px 32px' }}
+            style={{ paddingLeft: '32px', fontSize: '13px', height: '38px' }}
           />
         </div>
       </div>
 
-      {/* Tenants Table */}
-      <div className="table-container">
+      {/* MOBILE VIEW: Stacked Tenant Cards (Visible on screens <= 767px) */}
+      <div className="mobile-card-list">
+        {filteredTenants.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '32px', color: 'var(--color-text-muted)', fontSize: '13px' }}>
+            No tenants matching the current search or filters.
+          </div>
+        ) : (
+          filteredTenants.map((tenant) => {
+            const currentBill = bills.find((b) => b.tenantId === tenant.id && b.monthYear === selectedMonth);
+
+            return (
+              <div key={tenant.id} className="mobile-data-card">
+                <div className="mobile-data-card-header">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
+                    <div
+                      style={{
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '50%',
+                        backgroundColor: 'var(--color-primary-subtle)',
+                        color: 'var(--color-primary)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: 700,
+                        fontSize: '13px',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {tenant.name.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div style={{ minWidth: 0 }}>
+                      <div
+                        onClick={() => setActiveProfileId(tenant.id)}
+                        style={{
+                          fontWeight: 700,
+                          fontSize: '14px',
+                          color: 'var(--color-primary)',
+                          cursor: 'pointer',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {tenant.name}
+                      </div>
+                      <div style={{ fontSize: '11.5px', color: 'var(--color-text-muted)' }}>
+                        {tenant.phone}
+                      </div>
+                    </div>
+                  </div>
+
+                  <Badge type="tenancy" status={tenant.status} />
+                </div>
+
+                <div className="mobile-data-card-grid">
+                  <div>
+                    <span style={{ color: 'var(--color-text-muted)' }}>Room & Bed:</span>
+                    <strong style={{ display: 'block', color: 'var(--color-text-main)', marginTop: '1px' }}>
+                      Room {tenant.roomNumber} ({tenant.bedId})
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span style={{ color: 'var(--color-text-muted)' }}>Monthly Rent:</span>
+                    <strong style={{ display: 'block', color: 'var(--color-text-main)', marginTop: '1px' }}>
+                      ₹{tenant.monthlyRent.toLocaleString('en-IN')}/mo
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span style={{ color: 'var(--color-text-muted)' }}>Joining Date:</span>
+                    <div style={{ color: 'var(--color-text-main)', marginTop: '1px' }}>
+                      {tenant.joiningDate}
+                    </div>
+                  </div>
+
+                  <div>
+                    <span style={{ color: 'var(--color-text-muted)' }}>Rent Status ({selectedMonth.split(' ')[0]}):</span>
+                    <div style={{ marginTop: '2px' }}>
+                      {currentBill ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
+                          <Badge type="bill" status={currentBill.status} />
+                          {currentBill.outstandingAmount > 0 && (
+                            <span style={{ fontSize: '11px', color: 'var(--color-accent)', fontWeight: 700 }}>
+                              ₹{currentBill.outstandingAmount.toLocaleString('en-IN')} due
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <span style={{ color: 'var(--color-text-muted)' }}>N/A</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mobile-data-card-actions">
+                  {currentBill && currentBill.outstandingAmount > 0 && (
+                    <button
+                      onClick={() => {
+                        setSelectedBillId(currentBill.id);
+                        setIsRecordPaymentOpen(true);
+                      }}
+                      className="btn btn-primary btn-sm"
+                      style={{ fontSize: '12px', padding: '6px 12px' }}
+                    >
+                      <DollarSign size={14} />
+                      <span>Collect Rent</span>
+                    </button>
+                  )}
+
+                  <button
+                    onClick={() => setActiveProfileId(tenant.id)}
+                    className="btn btn-outline btn-sm"
+                    style={{ fontSize: '12px', padding: '6px 12px' }}
+                  >
+                    <Eye size={14} />
+                    <span>View Profile</span>
+                  </button>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* DESKTOP VIEW: Full Data Table (Visible on screens >= 768px) */}
+      <div className="table-container desktop-table-container">
         <table>
           <thead>
             <tr>

@@ -117,11 +117,12 @@ export const AddTenantModal: React.FC = () => {
       subtitle="Register a new occupant, assign an available bed, and record initial payments."
       maxWidth="680px"
       footer={
-        <>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '8px', width: '100%' }}>
           <button
             type="button"
             onClick={() => setIsAddTenantOpen(false)}
             className="btn btn-outline btn-sm"
+            style={{ minHeight: '38px', flex: '1 1 100px' }}
           >
             Cancel
           </button>
@@ -130,10 +131,11 @@ export const AddTenantModal: React.FC = () => {
             onClick={handleSubmit}
             className="btn btn-primary btn-sm"
             disabled={isSubmitting || availableBeds.length === 0}
+            style={{ minHeight: '38px', flex: '2 1 180px' }}
           >
             Confirm Move-in & Assign Bed
           </button>
-        </>
+        </div>
       }
     >
       <form onSubmit={handleSubmit}>
@@ -179,7 +181,7 @@ export const AddTenantModal: React.FC = () => {
             1. Personal & Contact Details
           </h4>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+          <div className="grid-form-2" style={{ gap: '14px' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">Full Name *</label>
               <input
@@ -205,7 +207,7 @@ export const AddTenantModal: React.FC = () => {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginTop: '12px' }}>
+          <div className="grid-form-2" style={{ gap: '14px', marginTop: '12px' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">Email (Optional)</label>
               <input
@@ -229,7 +231,7 @@ export const AddTenantModal: React.FC = () => {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginTop: '12px' }}>
+          <div className="grid-form-2" style={{ gap: '14px', marginTop: '12px' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">College / Company</label>
               <input
@@ -259,7 +261,7 @@ export const AddTenantModal: React.FC = () => {
             2. Room & Bed Assignment
           </h4>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
+          <div className="grid-form-3" style={{ gap: '12px' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">Floor</label>
               <select
@@ -336,7 +338,7 @@ export const AddTenantModal: React.FC = () => {
             <strong>Standard Terms:</strong> Monthly Rent: ₹{monthlyRent.toLocaleString('en-IN')} (incl. meals) + Security Deposit: ₹{securityDeposit.toLocaleString('en-IN')}. Total expected: ₹{(monthlyRent + securityDeposit).toLocaleString('en-IN')}.
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+          <div className="grid-form-2" style={{ gap: '14px' }}>
             <div className="form-group">
               <label className="form-label">Monthly Rent (₹)</label>
               <input
@@ -363,7 +365,7 @@ export const AddTenantModal: React.FC = () => {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+          <div className="grid-form-2" style={{ gap: '14px' }}>
             <div className="form-group">
               <label className="form-label">Security Deposit Required (₹)</label>
               <input
@@ -387,7 +389,7 @@ export const AddTenantModal: React.FC = () => {
 
           <div className="form-group">
             <label className="form-label">Payment Method</label>
-            <div style={{ display: 'flex', gap: '14px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
               {(['UPI', 'Cash', 'Bank Transfer'] as PaymentMethod[]).map((m) => (
                 <label key={m} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', cursor: 'pointer' }}>
                   <input

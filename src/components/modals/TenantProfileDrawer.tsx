@@ -293,7 +293,15 @@ export const TenantProfileDrawer: React.FC<TenantProfileDrawerProps> = ({
                     <Badge type="bill" status={bill.status} />
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', fontSize: '12.5px', marginBottom: '10px' }}>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(80px, 1fr))',
+                      gap: '8px',
+                      fontSize: '12.5px',
+                      marginBottom: '10px',
+                    }}
+                  >
                     <div>
                       <span style={{ color: 'var(--color-text-muted)' }}>Billed:</span> ₹{bill.billAmount.toLocaleString('en-IN')}
                     </div>
@@ -308,11 +316,11 @@ export const TenantProfileDrawer: React.FC<TenantProfileDrawerProps> = ({
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap', gap: '8px' }}>
                     <button
                       onClick={() => setSelectedReceiptBill(bill)}
                       className="btn btn-outline btn-sm"
-                      style={{ fontSize: '12px' }}
+                      style={{ fontSize: '12px', minHeight: '34px' }}
                     >
                       <Receipt size={13} />
                       <span>View Receipt</span>

@@ -128,24 +128,26 @@ export const CheckoutWizardModal: React.FC = () => {
       subtitle="Complete tenancy departure, calculate transparent security deposit settlement, and release bed."
       maxWidth="680px"
       footer={
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%', gap: '8px' }}>
           {currentStep > 1 ? (
             <button
               onClick={() => setCurrentStep(currentStep - 1)}
               className="btn btn-outline btn-sm"
               disabled={isSubmitting}
+              style={{ minHeight: '38px', flex: '1 1 80px' }}
             >
               Back
             </button>
           ) : <div />}
 
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', flex: '2 1 200px', justifyContent: 'flex-end' }}>
             <button
               onClick={() => {
                 setIsCheckoutWizardOpen(false);
                 setSelectedTenantId(null);
               }}
               className="btn btn-outline btn-sm"
+              style={{ minHeight: '38px' }}
             >
               Cancel
             </button>
@@ -155,6 +157,7 @@ export const CheckoutWizardModal: React.FC = () => {
                 onClick={() => setCurrentStep(currentStep + 1)}
                 className="btn btn-primary btn-sm"
                 disabled={!tenant}
+                style={{ minHeight: '38px' }}
               >
                 <span>Continue</span>
                 <ArrowRight size={14} />
@@ -164,6 +167,7 @@ export const CheckoutWizardModal: React.FC = () => {
                 onClick={handleCompleteCheckout}
                 className="btn btn-accent btn-sm"
                 disabled={isSubmitting || !allChecklistPassed}
+                style={{ minHeight: '38px' }}
               >
                 {isSubmitting ? 'Finalizing...' : 'Confirm Checkout & Release Bed'}
               </button>
@@ -177,23 +181,26 @@ export const CheckoutWizardModal: React.FC = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '20px',
+          gap: '12px',
+          overflowX: 'auto',
+          whiteSpace: 'nowrap',
+          marginBottom: '18px',
           borderBottom: '1px solid var(--color-border-light)',
-          paddingBottom: '12px',
+          paddingBottom: '10px',
         }}
       >
         {[
-          { step: 1, label: '1. Select & Rent Dues' },
-          { step: 2, label: '2. Deposit Settlement' },
-          { step: 3, label: '3. Room Inspection' },
-          { step: 4, label: '4. Refund & Bed Release' },
+          { step: 1, label: '1. Rent Dues' },
+          { step: 2, label: '2. Settlement' },
+          { step: 3, label: '3. Inspection' },
+          { step: 4, label: '4. Refund & Release' },
         ].map((s) => (
           <div
             key={s.step}
             style={{
               fontSize: '12px',
               fontWeight: 600,
+              flexShrink: 0,
               color: currentStep === s.step ? 'var(--color-primary)' : currentStep > s.step ? 'var(--color-success)' : 'var(--color-text-light)',
               display: 'flex',
               alignItems: 'center',
@@ -264,7 +271,7 @@ export const CheckoutWizardModal: React.FC = () => {
                     marginBottom: '16px',
                   }}
                 >
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '13px' }}>
+                  <div className="grid-form-2" style={{ gap: '10px', fontSize: '13px' }}>
                     <div>
                       <span style={{ color: 'var(--color-text-muted)' }}>Tenant Name:</span>{' '}
                       <strong>{tenant.name}</strong>
@@ -385,14 +392,14 @@ export const CheckoutWizardModal: React.FC = () => {
                 </div>
 
                 {/* Add Custom Deduction Form */}
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                   <input
                     type="text"
                     className="form-input"
                     placeholder="Other deduction reason (e.g. Broken chair)"
                     value={newReason}
                     onChange={(e) => setNewReason(e.target.value)}
-                    style={{ flex: 2, fontSize: '12.5px', padding: '6px 10px' }}
+                    style={{ flex: '2 1 180px', fontSize: '12.5px', padding: '8px 10px', minHeight: '38px' }}
                   />
                   <input
                     type="number"
@@ -400,13 +407,13 @@ export const CheckoutWizardModal: React.FC = () => {
                     placeholder="Amount (₹)"
                     value={newAmount || ''}
                     onChange={(e) => setNewAmount(Number(e.target.value))}
-                    style={{ flex: 1, fontSize: '12.5px', padding: '6px 10px' }}
+                    style={{ flex: '1 1 90px', fontSize: '12.5px', padding: '8px 10px', minHeight: '38px' }}
                   />
                   <button
                     type="button"
                     onClick={handleAddDeduction}
                     className="btn btn-outline btn-sm"
-                    style={{ padding: '6px 12px' }}
+                    style={{ minHeight: '38px', padding: '6px 14px' }}
                   >
                     <Plus size={14} />
                     <span>Add</span>
@@ -516,7 +523,7 @@ export const CheckoutWizardModal: React.FC = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '16px' }}>
+              <div className="grid-form-2" style={{ gap: '14px', marginBottom: '16px' }}>
                 <div className="form-group" style={{ marginBottom: 0 }}>
                   <label className="form-label">Refund Payment Mode</label>
                   <select
@@ -544,7 +551,7 @@ export const CheckoutWizardModal: React.FC = () => {
               {/* Bed Availability Control */}
               <div className="form-group" style={{ marginBottom: 0 }}>
                 <label className="form-label">Bed Status After Departure</label>
-                <div style={{ display: 'flex', gap: '16px', marginTop: '6px' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginTop: '6px' }}>
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', cursor: 'pointer' }}>
                     <input
                       type="radio"

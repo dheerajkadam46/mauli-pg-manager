@@ -55,13 +55,14 @@ export const QuickTourModal: React.FC = () => {
       subtitle="Designed specifically for Indian PG owners to simplify tenant records, rent collection, and deposits."
       maxWidth="620px"
       footer={
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-          <span style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%', alignItems: 'center', gap: '10px' }}>
+          <span style={{ fontSize: '11.5px', color: 'var(--color-text-muted)' }}>
             All numbers and tenants shown are simulated demo data.
           </span>
           <button
             onClick={() => setIsQuickTourOpen(false)}
             className="btn btn-primary btn-sm"
+            style={{ minHeight: '38px', flex: '1 1 180px' }}
           >
             Start Exploring Demo
           </button>
