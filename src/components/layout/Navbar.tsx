@@ -46,10 +46,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
           {/* Mobile Hamburger Button */}
           <button
             onClick={onToggleMobileMenu}
-            className="btn-icon"
+            className="btn-icon mobile-menu-btn"
             id="mobile-menu-btn"
             aria-label="Open navigation menu"
-            style={{ display: 'none' }}
           >
             <Menu size={20} />
           </button>
@@ -67,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
                 fontSize: '12.5px',
                 backgroundColor: 'var(--color-bg)',
                 borderColor: 'var(--color-border)',
-                maxWidth: '220px',
+                maxWidth: 'clamp(115px, 35vw, 220px)',
               }}
             >
               <Building size={15} color="var(--color-primary)" style={{ flexShrink: 0 }} />

@@ -87,16 +87,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       <aside
-        className={`app-sidebar ${mobileOpen ? 'mobile-open' : ''}`}
-        style={{
-          width: collapsed ? 'var(--sidebar-collapsed-width)' : 'var(--sidebar-width)',
-          backgroundColor: '#ffffff',
-          borderRight: '1px solid var(--color-border)',
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100vh',
-          flexShrink: 0,
-        }}
+        className={`app-sidebar ${mobileOpen ? 'mobile-open' : ''} ${collapsed ? 'collapsed' : ''}`}
       >
         {/* Brand Header */}
         <div
@@ -105,7 +96,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: collapsed ? '0 16px' : '0 18px',
+            padding: collapsed && !mobileOpen ? '0 16px' : '0 18px',
             borderBottom: '1px solid var(--color-border)',
             gap: '12px',
             overflow: 'hidden',
@@ -164,7 +155,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             onClick={() => setMobileOpen(false)}
             className="btn-icon sidebar-mobile-close-btn"
-            style={{ display: 'none' }}
             aria-label="Close menu"
           >
             <X size={20} />

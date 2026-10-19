@@ -71,19 +71,12 @@ export const DashboardPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Quick Actions Toolbar - Mobile-optimized Wrapping Toolbar */}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '8px',
-            alignItems: 'center',
-          }}
-        >
+        {/* Quick Actions Toolbar - Mobile-optimized Grid/Toolbar */}
+        <div className="dashboard-quick-actions">
           <button
             onClick={() => setIsAddTenantOpen(true)}
             className="btn btn-primary"
-            style={{ fontSize: '12.5px', padding: '7px 12px', flex: '1 1 auto', minHeight: '38px' }}
+            style={{ fontSize: '12.5px', padding: '7px 12px', minHeight: '38px' }}
           >
             <PlusCircle size={15} />
             <span>Add Tenant</span>
@@ -92,7 +85,7 @@ export const DashboardPage: React.FC = () => {
           <button
             onClick={() => setIsRecordPaymentOpen(true)}
             className="btn btn-outline"
-            style={{ fontSize: '12.5px', padding: '7px 12px', flex: '1 1 auto', minHeight: '38px' }}
+            style={{ fontSize: '12.5px', padding: '7px 12px', minHeight: '38px' }}
           >
             <Receipt size={15} />
             <span>Record Payment</span>
@@ -101,7 +94,7 @@ export const DashboardPage: React.FC = () => {
           <button
             onClick={() => setActiveTab('rooms')}
             className="btn btn-outline"
-            style={{ fontSize: '12.5px', padding: '7px 12px', flex: '1 1 auto', minHeight: '38px' }}
+            style={{ fontSize: '12.5px', padding: '7px 12px', minHeight: '38px' }}
           >
             <BedDouble size={15} />
             <span>View Occupancy</span>
@@ -113,7 +106,6 @@ export const DashboardPage: React.FC = () => {
             style={{
               fontSize: '12.5px',
               padding: '7px 12px',
-              flex: '1 1 auto',
               minHeight: '38px',
               color: 'var(--color-accent)',
               borderColor: 'var(--color-accent-border)',
